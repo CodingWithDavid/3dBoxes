@@ -1,0 +1,45 @@
+﻿@page "/"
+
+<button id="btn" class="magic" @onclick="ShowBoxesInDisplay">Magic 🎩</button>
+
+@if (ShowBoxes)
+{
+    <div id="boxes" class="boxes @(goBig ? "big" : "")">
+        @for (int i = 0; i < 4; i++)
+        {
+            int ii = i;
+            for (int j = 0; j < 4; j++)
+            {
+                int jj = j;
+                <div class="box" style='@GetPosition(jj,ii)'></div>
+            }
+        }
+    </div>
+}
+
+
+
+
+@code{
+
+    bool ShowBoxes = false;
+    bool goBig = true;
+
+    private void ShowBoxesInDisplay()
+    {
+        if (ShowBoxes)
+        {
+            goBig = !goBig;
+        }
+        else
+        {
+            ShowBoxes = true;
+        }
+        StateHasChanged();
+    }
+
+    private string GetPosition(int j, int i)
+    {
+        return $"background-position:{-j * 125}px {-i * 125}px";
+    }
+}
